@@ -1,0 +1,11 @@
+Model Information:
+* title:	Simple Fan/Air Conditioner - FBX
+* source:	https://sketchfab.com/3d-models/simple-fanair-conditioner-fbx-a0b1ae93faea45d98baa50fea99f7c1b
+* author:	Tekologist (https://sketchfab.com/tekologist)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Simple Fan/Air Conditioner - FBX" (https://sketchfab.com/3d-models/simple-fanair-conditioner-fbx-a0b1ae93faea45d98baa50fea99f7c1b) by Tekologist (https://sketchfab.com/tekologist) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
