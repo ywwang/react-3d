@@ -1,11 +1,7 @@
 import * as THREE from "three";
 import { Lut } from "three/examples/jsm/math/Lut";
-// import dataJson from "./cooling_system_result/cooling_system_temperature_time_step_1.json";
-
-// console.log(dataJson);
 
 const Particles = ({ dataset, temperature }) => {
-  // console.log(Lut);
   const lut = new Lut();
   lut.setColorMap("rainbow");
 
@@ -17,10 +13,6 @@ const Particles = ({ dataset, temperature }) => {
   const positions = [];
   const colors = [];
 
-  const color = new THREE.Color();
-
-  let min = 100;
-  let max = 0;
   let minH = 0;
   let maxH = 0;
   dataset.forEach((point) => {
@@ -29,13 +21,6 @@ const Particles = ({ dataset, temperature }) => {
     const z = point.position[2];
 
     positions.push(x, y, z);
-
-    // if (point.temperature < min) {
-    //   min = point.temperature;
-    // }
-    // if (point.temperature > max) {
-    //   max = point.temperature;
-    // }
 
     if (y > maxH) {
       maxH = y;
@@ -48,16 +33,6 @@ const Particles = ({ dataset, temperature }) => {
   console.log(minH, maxH);
   dataset.forEach((point) => {
     const _color = lut.getColor(point.temperature);
-    color.setRGB(
-      Math.floor(
-        ((point.temperature - temperature.min) /
-          (temperature.max - temperature.min)) *
-          255
-      ),
-      0,
-      0
-    );
-
     colors.push(_color.r, _color.g, _color.b);
   });
 
@@ -72,9 +47,10 @@ const Particles = ({ dataset, temperature }) => {
   var tex = new THREE.TextureLoader().load(
     "https://threejs.org/examples/textures/sprites/disc.png"
   );
+
   // load the texture
   const material = new THREE.PointsMaterial({
-    size: 2,
+    size: 1,
     vertexColors: true,
     transparent: true,
     // opacity: 0.7,
@@ -82,14 +58,11 @@ const Particles = ({ dataset, temperature }) => {
     // blending: THREE.AdditiveBlending,
     // depthTest: false,
   });
-  // const sprite = new THREE.Sprite(
-  //   new THREE.SpriteMaterial({
-  //     map: new THREE.CanvasTexture(lut.createCanvas()),
-  //   })
-  // );
+
   const spriteMaterial = new THREE.SpriteMaterial({
     map: new THREE.CanvasTexture(lut.createCanvas()),
   });
+
   return (
     <>
       <points geometry={geometry} material={material} />

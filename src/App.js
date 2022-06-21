@@ -5,9 +5,9 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import ThreeCanvas from "./ThreeCanvas";
 import "./App.css";
 
-import dataJson from "./cooling_system_result/cooling_system_temperature_time_step_1.json";
-
 function App() {
+  const _initData = require(`./cooling_system_result/cooling_system_temperature_time_step_1.json`);
+  const [dataJson, setDataJson] = useState(_initData);
   const [layer, setLayer] = useState(0);
   const [filterData, setFilterData] = useState(
     dataJson.filter((d) => d.position[1] === layer)
@@ -15,7 +15,7 @@ function App() {
   const [temperature, setTemperature] = useState({ min: 0, max: 100 });
   const [showDevices, setShowDevices] = useState(true);
 
-  useEffect(() => {
+  const generateTemperature = (dataJson) => {
     let min = 1000;
     let max = 0;
     dataJson.forEach((point) => {
@@ -27,27 +27,27 @@ function App() {
       }
     });
     setTemperature({ min, max });
+  };
 
-    const timer = setTimeout(() => {
-      const index = Math.floor(Math.random() * 10);
-      const test = require(`./cooling_system_result/cooling_system_temperature_time_step_${index}.json`);
-      console.log("test", index);
-    }, "1000");
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const index = Math.floor(Math.random() * 10) + 1;
+      const _data = require(`./cooling_system_result/cooling_system_temperature_time_step_${index}.json`);
+      generateTemperature(_data);
+      setDataJson(_data);
+      console.log("file index: ", index);
+    }, "2000");
 
     return () => {
-      clearTimeout(timer);
+      clearInterval(timer);
     };
   }, []);
-  // setFilterData(dataJson.filter((d) => d.position[1] !== layer));
 
   const handleSilderChange = (e) => {
     const _value = e.target.value;
     setLayer(_value);
     setFilterData(dataJson.filter((d) => d.position[1] === parseInt(_value)));
-    // console.log("inner", filterData);
   };
-
-  // console.log(filterData);
 
   return (
     <div className="App">
